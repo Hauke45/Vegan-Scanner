@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f1">
+  <title>Vegan-Check</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js" defer></script>
+  <script src="vegan-check.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="page-header">
+      <p class="eyebrow">DEIN EINFACHER PRODUKT-CHECK</p>
+      <h1>Vegan-Check</h1>
+      <p class="intro">Barcode scannen oder Zutatenliste prüfen – schnell und transparent.</p>
+    </header>
+
+    <section class="card scanner-card" aria-labelledby="scanner-heading">
+      <h2 id="scanner-heading">Barcode scannen</h2>
+      <p>Erlaube Chrome den Kamerazugriff, wenn du dazu aufgefordert wirst.</p>
+      <div id="reader" class="reader" aria-label="Kamerabild für den Barcode-Scanner"></div>
+      <div class="button-row">
+        <button id="start-scanner" class="button button-primary" type="button">Scanner starten</button>
+        <button id="stop-scanner" class="button button-secondary" type="button" hidden>Scanner stoppen</button>
+      </div>
+      <p id="scanner-status" class="status-message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="card" aria-labelledby="barcode-heading">
+      <h2 id="barcode-heading">Barcode manuell eingeben</h2>
+      <form id="barcode-form" class="form-row">
+        <label class="visually-hidden" for="barcode-input">Barcode (8 bis 14 Ziffern)</label>
+        <input id="barcode-input" name="barcode" type="text" inputmode="numeric"
+          autocomplete="off" placeholder="z. B. 3017620422003"
+          pattern="[0-9]{8,14}" minlength="8" maxlength="14" required>
+        <button class="button button-primary" type="submit">Produkt suchen</button>
+      </form>
+      <p class="help-text">Die Suche verwendet die kostenlose Open Food Facts-Datenbank.</p>
+    </section>
+
+    <section class="card" aria-labelledby="ingredients-heading">
+      <h2 id="ingredients-heading">Zutaten selbst prüfen</h2>
+      <form id="ingredients-form">
+        <label for="ingredients-input">Zutatenliste</label>
+        <textarea id="ingredients-input" name="ingredients" rows="5"
+          placeholder="Zutaten von der Verpackung hier eingeben …" required></textarea>
+        <button class="button button-primary" type="submit">Zutaten prüfen</button>
+      </form>
+      <p class="help-text">Am besten die vollständige Zutatenliste inklusive E-Nummern eingeben.</p>
+    </section>
+
+    <section id="result" class="card result-card" aria-labelledby="result-heading" hidden>
+      <div class="result-heading">
+        <div>
+          <p id="result-source" class="eyebrow"></p>
+          <h2 id="result-heading">Prüfergebnis</h2>
+          <p id="product-name" class="product-name"></p>
+        </div>
+        <span id="verdict" class="verdict"></span>
+      </div>
+      <h3>Begründung</h3>
+      <p id="reason" class="reason"></p>
+      <div class="details-grid">
+        <div>
+          <h3>Zutaten</h3>
+          <p id="ingredients-display" class="detail-text"></p>
+        </div>
+        <div>
+          <h3>Zusatzstoffe</h3>
+          <p id="additives-display" class="detail-text"></p>
+        </div>
+      </div>
+      <a id="product-link" class="product-link" target="_blank" rel="noopener noreferrer" hidden>
+        Produkt auf Open Food Facts ansehen
+      </a>
+    </section>
+
+    <aside class="notice" aria-label="Wichtiger Hinweis">
+      <strong>Bitte beachten:</strong> Die Erkennung nutzt eine begrenzte Regelliste und die von
+      Open Food Facts bereitgestellten, gemeinschaftlich gepflegten Daten. Sie kann unbekannte,
+      nicht deklarierte oder anders bezeichnete tierische Stoffe übersehen. Auch „VEGAN“ ist
+      deshalb keine Garantie. Prüfe im Zweifel die Verpackung und frage beim Hersteller nach.
+    </aside>
+
+    <footer class="page-footer">
+      Für die Produktsuche werden Barcodes an Open Food Facts übermittelt.
+    </footer>
+  </main>
+</body>
+</html>
